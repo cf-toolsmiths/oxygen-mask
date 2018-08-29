@@ -31,11 +31,12 @@ resources:
     user: concourse
     repository: concourse
     access_token: ((github_access_token))
+    tag_filter: "v3.14.1"
 
 - name: oxygen-mask
   type: git
   source:
-    uri: https://github.com/concourse/oxygen-mask
+    uri: https://github.com/cf-toolsmiths/oxygen-mask
 
 jobs:
 - name: fly-hijack-failing-build

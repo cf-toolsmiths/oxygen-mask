@@ -2,7 +2,7 @@ resources:
 - name: time-trigger
   type: time
   source: {interval: 24h}
-
+  tags: [us-central1-gcp]
 jobs:
 - name: simple-job
   build_logs_to_retain: 20
@@ -10,6 +10,7 @@ jobs:
   plan:
   - &say-hello
     task: say-hello
+    tags: [us-central1-gcp]
     config:
       platform: linux
       image_resource:
@@ -24,6 +25,7 @@ jobs:
   public: true
   plan:
   - task: fail
+    tags: [us-central1-gcp]
     config:
       platform: linux
       image_resource:
@@ -37,5 +39,6 @@ jobs:
   public: true
   plan:
   - get: time-trigger
+    tags: [us-central1-gcp]
     trigger: true
   - *say-hello

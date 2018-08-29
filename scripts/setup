@@ -47,7 +47,7 @@ fly -t "$MONITORED_TARGET" set-pipeline -n -p "$PIPELINE_NAME" -c pipeline.yml
 fly -t "$MONITORED_TARGET" unpause-pipeline -p "$PIPELINE_NAME"
 fly -t "$MONITORED_TARGET" expose-pipeline -p "$PIPELINE_NAME"
 
-cmd=(fly -t "$MONITORING_TARGET" set-pipeline -n -p "$PIPELINE_NAME"-stats -c $tmpfile \
+cmd=(fly4 -t "$MONITORING_TARGET" set-pipeline -n -p "$PIPELINE_NAME"-stats -c $tmpfile \
   -v atc_url="$(fly targets | grep "$MONITORED_TARGET"  | head -n 1 | awk '{print $2}')" \
   -v interval=30s \
   -v password="$PASSWORD" \
@@ -63,7 +63,7 @@ if [ -n "$DATADOG_API_KEY" ]; then
 fi
 
 if [ -n "$DELETE_THE_PIPELINES" ]; then
-  fly -t "$MONITORING_TARGET" destroy-pipeline -n -p "$PIPELINE_NAME"-stats
+  fly4 -t "$MONITORING_TARGET" destroy-pipeline -n -p "$PIPELINE_NAME"-stats
 fi
 "${cmd[@]}"
-fly -t "$MONITORING_TARGET" unpause-pipeline -p "$PIPELINE_NAME"-stats
+fly4 -t "$MONITORING_TARGET" unpause-pipeline -p "$PIPELINE_NAME"-stats
